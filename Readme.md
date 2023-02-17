@@ -11,6 +11,11 @@ If `qdbus` an optional dependency is installed it will fetch data from mobile de
 sudo make install
 ```
 
+## Arch (AUR)
+```
+yay -S basic-battery-stat
+```
+
 # Uninstallation
 
 ```bash
