@@ -9,7 +9,7 @@ system-battery() {
 	for i in "${batteries[@]}"; do
 		echo "$(basename "$i"): $($catcmd "$i"/model_name) $($catcmd "$i"/technology)"
 		echo "  Status:   $($catcmd "$i"/status)"
-		echo "  Health:   $(($($catcmd "$i"/energy_full) * 100 / $($catcmd "$i"/energy_full_design)))%"
+		echo "  Health:   $(($($catcmd "$i"/*_full) * 100 / $($catcmd "$i"/*_full_design)))%"
 		echo "  Cycle:    $($catcmd "$i"/cycle_count)"
 		echo "  Capacity: $($catcmd "$i"/capacity)%"
 	done
