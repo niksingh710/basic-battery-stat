@@ -8,10 +8,11 @@ system-battery() {
 	mapfile -t batteries < <(/usr/bin/ls -d "/sys/class/power_supply/BAT"*)
 	for i in "${batteries[@]}"; do
 		echo "$(basename "$i"): $($catcmd "$i"/model_name) $($catcmd "$i"/technology)"
-		echo "  Status:   $($catcmd "$i"/status)"
-		echo "  Health:   $(($($catcmd "$i"/*_full) * 100 / $($catcmd "$i"/*_full_design)))%"
-		echo "  Cycle:    $($catcmd "$i"/cycle_count)"
-		echo "  Capacity: $($catcmd "$i"/capacity)%"
+		echo "  Status:       $($catcmd "$i"/status)"
+		echo "  Health:       $(($($catcmd "$i"/*_full) * 100 / $($catcmd "$i"/*_full_design)))%"
+		echo "  Power Draw:   $(($($catcmd "$i"/power_now) / 1000000)) W"
+		echo "  Cycle:        $($catcmd "$i"/cycle_count)"
+		echo "  Capacity:     $($catcmd "$i"/capacity)%"
 	done
 	echo ""
 }
@@ -48,6 +49,9 @@ otherdevice() {
 	echo "  Capacity:   $battery%"
 	echo ""
 }
+main() {
+	system-battery
+	otherdevice
+}
 
-system-battery
-otherdevice
+main
