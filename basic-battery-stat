@@ -10,9 +10,14 @@ system-battery() {
 		echo "$(basename "$i"): $($catcmd "$i"/model_name) $($catcmd "$i"/technology)"
 		echo "  Status:       $($catcmd "$i"/status)"
 		echo "  Health:       $(($($catcmd "$i"/*_full) * 100 / $($catcmd "$i"/*_full_design)))%"
-		echo "  Power Draw:   $(($($catcmd "$i"/power_now) / 1000000)) W"
+    if [ -f "$i/power_now" ];then
+		  echo "  Power Draw:   $(($($catcmd "$i"/power_now) / 1000000)) "
+    fi
 		echo "  Cycle:        $($catcmd "$i"/cycle_count)"
 		echo "  Capacity:     $($catcmd "$i"/capacity)%"
+    if [ -f "$i/charge_control_end_threshold" ];then
+      echo "  Charge Limit: $($catcmd "$i"/charge_control_end_threshold)%"
+    fi
 	done
 	echo ""
 }
