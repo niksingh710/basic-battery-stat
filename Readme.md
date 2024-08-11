@@ -16,6 +16,29 @@ sudo make install
 yay -S basic-battery-stat
 ```
 
+## Nix
+
+##### To run
+
+```
+nix run github:niksingh710/basic-battery-stat
+```
+
+##### Install
+
+```
+# flake input
+bstat = {
+  url = "github:niksingh710/basic-battery-stat";
+  inputs.nixpkgs.follows = "nixpkgs";
+};
+
+environment.systemPackages = [
+  inputs.bstat.packages.${pkgs.system}.default
+];
+```
+
+
 # Uninstallation
 
 ```bash
